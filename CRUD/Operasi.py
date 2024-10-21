@@ -2,6 +2,26 @@ from time import time
 from CRUD import Database
 from CRUD.Util import random_string
 import time
+import os
+
+def delete(no_buku):
+    with open(Database.DB_NAME, 'r') as file:
+        lines = file.readlines()
+    
+    # Pastikan untuk menghapus indeks yang diinginkan
+    if 0 < no_buku <= len(lines):
+        lines.pop(no_buku - 1)  # Menghapus baris yang sesuai dengan no_buku
+
+    # Menyimpan kembali ke file sementara
+    with open("data_temp.txt", 'w') as file_temp:
+        file_temp.writelines(lines)
+
+    # Menghapus file asli sebelum mengganti nama
+    if os.path.exists(Database.DB_NAME):
+        os.remove(Database.DB_NAME)
+
+    # Mengganti nama file sementara menjadi file asli
+    os.rename("data_temp.txt", Database.DB_NAME)
 
 def update(no_buku,pk,data_add,tahun,judul,penulis):
     data = Database.TEMPLATE.copy()

@@ -9,9 +9,9 @@ TEMPLATE = {
     "tahun":"yyyy"
 }
 
-def init_console(): 
+def init_console():
     try:
-        with open(DB_NAME,"r") as file:
+        with open(DB_NAME) as file:
             print("Database tersedia, init done!")
     except:
         print("Database tidak ditemukan, silahkan membuat database baru")
